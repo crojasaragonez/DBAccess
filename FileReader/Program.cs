@@ -12,9 +12,12 @@ namespace FileReader
         static void Main(string[] args)
         {
             IReader oReaader = new PlainTextReader();
-            Console.WriteLine(oReaader.Read("mi_archivo.txt"));
+           // Console.WriteLine(oReaader.Read("texto.txt"));
+            oReaader.contadorLineas("texto.txt");
+          
+            Console.WriteLine(oReaader.devolverTexto());
+            Console.ReadKey();
 
-            Console.ReadLine();
         }
     }
 }
