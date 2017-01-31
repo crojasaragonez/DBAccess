@@ -12,7 +12,7 @@ namespace FileReader.Readers
 
         public string Name()
         {
-            return "Contar Lineas";
+            return "ContarLineas";
         }
 
         public string Read(string path)
