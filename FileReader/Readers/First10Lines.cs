@@ -10,7 +10,7 @@ namespace FileReader.Readers
     {
         public string Name()
         {
-            throw new NotImplementedException();
+            return "First 10 Lines";
         }
 
       
