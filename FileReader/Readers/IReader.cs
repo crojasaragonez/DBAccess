@@ -12,14 +12,5 @@ namespace FileReader.Readers
         string Name();
         //returns the file content
         string Read(string path);
-
-        void contadorLineas(string path);
-
-        String devolverTexto();
-
-
-
     }
-
-
 }
