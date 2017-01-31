@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace FileReader.Readers
 {
-    class ProcesoLineas
+    class ProcesoLineas : IReader
     {
-        public static string contarLineas(String path)
+
+        public string Name()
+        {
+            return "Contar Lineas";
+        }
+
+        public string Read(string path)
         {
             StreamReader sr = new StreamReader(path);
             String linea = "";
@@ -28,6 +34,5 @@ namespace FileReader.Readers
 
             return linea;
         }
-
     }
 }

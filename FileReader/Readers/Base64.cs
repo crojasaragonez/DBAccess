@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace FileReader.Readers
 {
-    class Base64
+    class Base64 : IReader
     {
-
-        public static string Base64Encode(string plainText)
+        public string Name()
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
+           return "Base64";
         }
 
-
-
-        public static string Base64Decode(string base64EncodedData)
+        public string Read(string path)
         {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            String text = System.IO.File.ReadAllText(path);
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(text);
+            return System.Convert.ToBase64String(plainTextBytes);
         }
     }
 }
-}
+
