@@ -11,10 +11,32 @@ namespace FileReader
     {
         static void Main(string[] args)
         {
-            IReader oReaader = new PlainTextReader();
-            Console.WriteLine(oReaader.Read("mi_archivo.txt"));
+            if (args.Length < 2) {
+                Program.Usage();
+                return;
+            }
+            string reader = args[0];
+            string path = args[1];
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof(IReader).IsAssignableFrom(p))
+                .Where(a => !a.FullName.Equals("FileReader.Readers.IReader"));
 
-            Console.ReadLine();
+            foreach (var imp in types)
+            {
+                IReader implementation = (IReader)Activator.CreateInstance(imp);
+                if (implementation.Name().Equals(reader))
+                {
+                    Console.WriteLine("Reader: {0}", implementation.Name());
+                    Console.WriteLine(implementation.Read(path));
+                    return;
+                }
+            }
+            Console.Error.WriteLine("Reader {0} was not found", reader);
+        }
+
+        public static void Usage() {
+            Console.WriteLine("Usage:\n FileReader.exe reader_name file_path");
         }
     }
 }
