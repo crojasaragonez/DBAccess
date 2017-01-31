@@ -12,7 +12,7 @@ namespace FileReader.Readers
     {
         public string Name()
         {
-            return "txt";
+            return "Count Letters";
         }
 
         public string Read(string path)
