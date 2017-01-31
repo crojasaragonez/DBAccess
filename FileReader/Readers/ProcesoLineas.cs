@@ -22,13 +22,9 @@ namespace FileReader.Readers
             int i = 0;
 
             while (sr.Peek() != -1)
-
             {
-
                 sr.ReadLine();
-
                 i++;
-
             }
             linea = "El archivo contiene " + i + " lineas.";
 

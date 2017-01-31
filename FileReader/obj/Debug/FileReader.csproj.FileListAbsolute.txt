@@ -1,9 +1,0 @@
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\bin\Debug\FileReader.exe.config
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\bin\Debug\FileReader.exe
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\bin\Debug\FileReader.pdb
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\obj\Debug\FileReader.csprojResolveAssemblyReference.cache
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\obj\Debug\FileReader.exe
-c:\users\carlos\documents\visual studio 2015\Projects\FileReader\FileReader\obj\Debug\FileReader.pdb
-C:\Users\Kevin Arias Arce\Documents\git_example\FileReader\bin\Debug\FileReader.exe.config
-C:\Users\Kevin Arias Arce\Documents\git_example\FileReader\obj\Debug\FileReader.exe
-C:\Users\Kevin Arias Arce\Documents\git_example\FileReader\obj\Debug\FileReader.pdb

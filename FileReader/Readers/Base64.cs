@@ -13,8 +13,7 @@ namespace FileReader.Readers
            return "Base64";
         }
 
-        public string Read(string path)
-        {
+        public string Read(string path) {
             String text = System.IO.File.ReadAllText(path);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(text);
             return System.Convert.ToBase64String(plainTextBytes);
