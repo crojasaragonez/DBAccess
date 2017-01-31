@@ -10,7 +10,7 @@ namespace FileReader.Readers
     {
         public string Name()
         {
-            return "txt";
+            return "inverts";
         }
 
         public string Read(string path)
