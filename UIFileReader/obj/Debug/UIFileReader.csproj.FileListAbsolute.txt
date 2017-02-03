@@ -1,0 +1,11 @@
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\UIFileReader.exe.config
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\UIFileReader.exe
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\UIFileReader.pdb
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.Properties.Resources.resources
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.csproj.GenerateResource.Cache
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.exe
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.pdb
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.FrmMain.resources
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\Implementation.dll
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\Implementation.pdb

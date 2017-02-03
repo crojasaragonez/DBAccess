@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9BDBE932-35B5-4CA7-B177-BB01FA41623B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{4A0AC27A-4244-40AF-BCEE-D24DABD8222E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FileReader</RootNamespace>
-    <AssemblyName>FileReader</AssemblyName>
+    <RootNamespace>Implementation</RootNamespace>
+    <AssemblyName>Implementation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,22 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Base64.cs" />
+    <Compile Include="PlainTextReader.cs" />
+    <Compile Include="IReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers\Base64.cs" />
-    <Compile Include="Readers\CountLetters.cs" />
-    <Compile Include="Readers\CountWords.cs" />
-    <Compile Include="Readers\First10Lines.cs" />
-    <Compile Include="Readers\inverts.cs" />
-    <Compile Include="Readers\IReader.cs" />
-    <Compile Include="Readers\PlainTextReader.cs" />
-    <Compile Include="Readers\ProcesoLineas.cs" />
-    <Compile Include="Readers\TenLines.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

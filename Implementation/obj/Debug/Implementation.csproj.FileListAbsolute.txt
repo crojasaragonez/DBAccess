@@ -1,0 +1,5 @@
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\Implementation\bin\Debug\Implementation.dll
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\Implementation\bin\Debug\Implementation.pdb
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\Implementation\obj\Debug\Implementation.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\Implementation\obj\Debug\Implementation.dll
+C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\Implementation\obj\Debug\Implementation.pdb
