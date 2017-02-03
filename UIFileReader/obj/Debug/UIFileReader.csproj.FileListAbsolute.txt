@@ -9,14 +9,3 @@ C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\ob
 C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\obj\Debug\UIFileReader.FrmMain.resources
 C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\Implementation.dll
 C:\Users\Carlos\Documents\Visual Studio 2015\Projects\FileReader\UIFileReader\bin\Debug\Implementation.pdb
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\bin\Debug\UIFileReader.exe.config
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.exe
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.pdb
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\bin\Debug\UIFileReader.exe
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\bin\Debug\UIFileReader.pdb
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\bin\Debug\Implementation.dll
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\bin\Debug\Implementation.pdb
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.csprojResolveAssemblyReference.cache
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.FrmMain.resources
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.Properties.Resources.resources
-C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\git_example\UIFileReader\obj\Debug\UIFileReader.csproj.GenerateResource.Cache
