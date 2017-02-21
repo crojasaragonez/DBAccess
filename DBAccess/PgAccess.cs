@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DBAccess
 {
-    class PgAccess : DBAccess
+    public class PgAccess : DBAccess
     {
         private NpgsqlConnection connection;
         public PgAccess(string connectionString) : base(connectionString)
