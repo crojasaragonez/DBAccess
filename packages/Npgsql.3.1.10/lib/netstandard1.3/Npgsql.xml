@@ -375,12 +375,6 @@
             to all of them.
             </remarks>
         </member>
-        <member name="M:Npgsql.NpgsqlCommand.System#ICloneable#Clone">
-            <summary>
-            Create a new command based on this one.
-            </summary>
-            <returns>A new NpgsqlCommand object.</returns>
-        </member>
         <member name="M:Npgsql.NpgsqlCommand.Clone">
             <summary>
             Create a new command based on this one.
@@ -595,12 +589,6 @@
             When a connection is closed within an enclosing TransactionScope and the transaction
             hasn't been promoted, we defer the actual closing until the scope ends.
             </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.EnlistTransaction(System.Transactions.Transaction)">
-            <summary>
-            Enlist transation.
-            </summary>
-            <param name="transaction"></param>
         </member>
         <member name="M:Npgsql.NpgsqlConnection.Close">
             <summary>
@@ -915,30 +903,7 @@
             (<see cref="E:Npgsql.NpgsqlConnection.Notification"/>, <see cref="E:Npgsql.NpgsqlConnection.Notice"/>).
             </summary>
         </member>
-        <member name="M:Npgsql.NpgsqlConnection.GetSchema">
-            <summary>
-            Returns the supported collections
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.GetSchema(System.String)">
-            <summary>
-            Returns the schema collection specified by the collection name.
-            </summary>
-            <param name="collectionName">The collection name.</param>
-            <returns>The collection specified.</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.GetSchema(System.String,System.String[])">
-            <summary>
-            Returns the schema collection specified by the collection name filtered by the restrictions.
-            </summary>
-            <param name="collectionName">The collection name.</param>
-            <param name="restrictions">
-            The restriction values to filter the results.  A description of the restrictions is contained
-            in the Restrictions collection.
-            </param>
-            <returns>The collection specified.</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.System#ICloneable#Clone">
+        <member name="M:Npgsql.NpgsqlConnection.Clone">
             <summary>
             Creates a closed connection with the connection string and authentication details of this message.
             </summary>
@@ -957,11 +922,6 @@
             database and connecting to the specified.
             </summary>
             <param name="dbName">The name of the database to use in place of the current database.</param>
-        </member>
-        <member name="P:Npgsql.NpgsqlConnection.DbProviderFactory">
-            <summary>
-            DB provider factory.
-            </summary>
         </member>
         <member name="M:Npgsql.NpgsqlConnection.ClearPool(Npgsql.NpgsqlConnection)">
             <summary>
@@ -1310,11 +1270,6 @@
             <summary>
             If HasRows was called before any rows were read, it was forced to read messages. A pending
             message may be stored here for processing in the next Read() or NextResult().
-            </summary>
-        </member>
-        <member name="F:Npgsql.NpgsqlDataReader._cachedSchemaTable">
-            <summary>
-            If <see cref="M:Npgsql.NpgsqlDataReader.GetSchemaTable"/> has been called, its results are cached here.
             </summary>
         </member>
         <member name="E:Npgsql.NpgsqlDataReader.ReaderClosed">
@@ -1755,21 +1710,6 @@
             Returns schema information for the columns in the current resultset.
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataReader.GetSchemaTable">
-            <summary>
-            Returns a System.Data.DataTable that describes the column metadata of the DataReader.
-            </summary>
-        </member>
-        <member name="F:Npgsql.NpgsqlDataReader.KeyLookup.PrimaryKey">
-            <summary>
-            Contains the column names as the keys
-            </summary>
-        </member>
-        <member name="F:Npgsql.NpgsqlDataReader.KeyLookup.UniqueColumns">
-            <summary>
-            Contains all unique columns
-            </summary>
         </member>
         <member name="T:Npgsql.NpgsqlLargeObjectManager">
             <summary>
@@ -2630,194 +2570,6 @@
             Completes the import process and signals to the database to write everything.
             </summary>
         </member>
-        <member name="T:Npgsql.NpgsqlCommandBuilder">
-            <summary>
-             This class is responsible to create database commands for automatic insert, update and delete operations.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Npgsql.NpgsqlCommandBuilder"/> class.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.#ctor(Npgsql.NpgsqlDataAdapter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Npgsql.NpgsqlCommandBuilder"/> class.
-            </summary>
-            <param name="adapter">The adapter.</param>
-        </member>
-        <member name="P:Npgsql.NpgsqlCommandBuilder.QuotePrefix">
-            <summary>
-            Gets or sets the beginning character or characters to use when specifying database objects (for example, tables or columns) whose names contain characters such as spaces or reserved tokens.
-            </summary>
-            <returns>
-            The beginning character or characters to use. The default is an empty string.
-              </returns>
-              <PermissionSet>
-              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*" />
-              </PermissionSet>
-        </member>
-        <member name="P:Npgsql.NpgsqlCommandBuilder.QuoteSuffix">
-            <summary>
-            Gets or sets the ending character or characters to use when specifying database objects (for example, tables or columns) whose names contain characters such as spaces or reserved tokens.
-            </summary>
-            <returns>
-            The ending character or characters to use. The default is an empty string.
-              </returns>
-              <PermissionSet>
-              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*" />
-              </PermissionSet>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.DeriveParameters(Npgsql.NpgsqlCommand)">
-            <summary>
-            
-             This method is reponsible to derive the command parameter list with values obtained from function definition.
-             It clears the Parameters collection of command. Also, if there is any parameter type which is not supported by Npgsql, an InvalidOperationException will be thrown.
-             Parameters name will be parameter1, parameter2, ...
-            </summary>
-             <param name="command">NpgsqlCommand whose function parameters will be obtained.</param>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetInsertCommand">
-            <summary>
-            Gets the automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required
-            to perform insertions at the data source.
-            </summary>
-            <returns>
-            The automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform insertions.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetInsertCommand(System.Boolean)">
-            <summary>
-            Gets the automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform insertions
-            at the data source, optionally using columns for parameter names.
-            </summary>
-            <param name="useColumnsForParameterNames">
-            If <c>true</c>, generate parameter names matching column names, if possible.
-            If <c>false</c>, generate @p1, @p2, and so on.
-            </param>
-            <returns>
-            The automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform insertions.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetUpdateCommand">
-            <summary>
-            Gets the automatically generated System.Data.Common.DbCommand object required
-            to perform updates at the data source.
-            </summary>
-            <returns>
-            The automatically generated System.Data.Common.DbCommand object required to perform updates.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetUpdateCommand(System.Boolean)">
-            <summary>
-            Gets the automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform updates
-            at the data source, optionally using columns for parameter names.
-            </summary>
-            <param name="useColumnsForParameterNames">
-            If <c>true</c>, generate parameter names matching column names, if possible.
-            If <c>false</c>, generate @p1, @p2, and so on.
-            </param>
-            <returns>
-            The automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform updates.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetDeleteCommand">
-            <summary>
-            Gets the automatically generated System.Data.Common.DbCommand object required
-            to perform deletions at the data source.
-            </summary>
-            <returns>
-            The automatically generated System.Data.Common.DbCommand object required to perform deletions.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetDeleteCommand(System.Boolean)">
-            <summary>
-            Gets the automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform deletions
-            at the data source, optionally using columns for parameter names.
-            </summary>
-            <param name="useColumnsForParameterNames">
-            If <c>true</c>, generate parameter names matching column names, if possible.
-            If <c>false</c>, generate @p1, @p2, and so on.
-            </param>
-            <returns>
-            The automatically generated <see cref="T:Npgsql.NpgsqlCommand"/> object required to perform deletions.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)">
-            <summary>
-            Applies the parameter information.
-            </summary>
-            <param name="p">The parameter.</param>
-            <param name="row">The row.</param>
-            <param name="statementType">Type of the statement.</param>
-            <param name="whereClause">if set to <c>true</c> [where clause].</param>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetParameterName(System.Int32)">
-            <summary>
-            Returns the name of the specified parameter in the format of @p#.
-            </summary>
-            <param name="parameterOrdinal">The number to be included as part of the parameter's name..</param>
-            <returns>
-            The name of the parameter with the specified number appended as part of the parameter name.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetParameterName(System.String)">
-            <summary>
-            Returns the full parameter name, given the partial parameter name.
-            </summary>
-            <param name="parameterName">The partial name of the parameter.</param>
-            <returns>
-            The full parameter name corresponding to the partial parameter name requested.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.GetParameterPlaceholder(System.Int32)">
-            <summary>
-            Returns the placeholder for the parameter in the associated SQL statement.
-            </summary>
-            <param name="parameterOrdinal">The number to be included as part of the parameter's name.</param>
-            <returns>
-            The name of the parameter with the specified number appended.
-            </returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)">
-            <summary>
-            Registers the <see cref="T:NpgsqlCommandBuilder" /> to handle the <see cref="E:NpgsqlDataAdapter.RowUpdating"/> event for a <see cref="T:NpgsqlDataAdapter" />.
-            </summary>
-            <param name="adapter">The <see cref="T:System.Data.Common.DbDataAdapter" /> to be used for the update.</param>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.RowUpdatingHandler(System.Object,Npgsql.NpgsqlRowUpdatingEventArgs)">
-            <summary>
-            Adds an event handler for the <see cref="E:Npgsql.NpgsqlDataAdapter.RowUpdating"/> event.
-            </summary>
-            <param name="sender">The sender</param>
-            <param name="e">A <see cref="T:Npgsql.NpgsqlRowUpdatingEventArgs"/> instance containing information about the event.</param>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.QuoteIdentifier(System.String)">
-            <summary>
-            Given an unquoted identifier in the correct catalog case, returns the correct quoted form of that identifier, including properly escaping any embedded quotes in the identifier.
-            </summary>
-            <param name="unquotedIdentifier">The original unquoted identifier.</param>
-            <returns>
-            The quoted version of the identifier. Embedded quotes within the identifier are properly escaped.
-            </returns>
-            <PermissionSet>
-              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*" />
-              </PermissionSet>
-            <exception cref="T:System.ArgumentNullException">Unquoted identifier parameter cannot be null</exception>
-        </member>
-        <member name="M:Npgsql.NpgsqlCommandBuilder.UnquoteIdentifier(System.String)">
-            <summary>
-            Given a quoted identifier, returns the correct unquoted form of that identifier, including properly un-escaping any embedded quotes in the identifier.
-            </summary>
-            <param name="quotedIdentifier">The identifier that will have its embedded quotes removed.</param>
-            <returns>
-            The unquoted identifier, with embedded quotes properly un-escaped.
-            </returns>
-            <PermissionSet>
-              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" PathDiscovery="*AllFiles*" />
-              </PermissionSet>
-            <exception cref="T:System.ArgumentNullException">Quoted identifier parameter cannot be null</exception>
-        </member>
         <member name="T:Npgsql.NoticeEventHandler">
             <summary>
             Represents the method that handles the <see cref="E:Npgsql.NpgsqlConnection.Notification">Notice</see> events.
@@ -2864,12 +2616,6 @@
             <summary>
             Initializes a new instance of the NpgsqlConnectionStringBuilder class.
             </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnectionStringBuilder.#ctor(System.Boolean)">
-            <summary>
-            Initializes a new instance of the NpgsqlConnectionStringBuilder class, optionally using ODBC rules for quoting values.
-            </summary>
-            <param name="useOdbcRules">true to use {} to delimit fields; false to use quotation marks.</param>
         </member>
         <member name="M:Npgsql.NpgsqlConnectionStringBuilder.#ctor(System.String)">
             <summary>
@@ -3243,102 +2989,6 @@
             Skip DataRow messages altogether
             </summary>
         </member>
-        <member name="T:Npgsql.NpgsqlRowUpdatedEventHandler">
-            <summary>
-            Represents the method that handles the <see cref="E:Npgsql.NpgsqlDataAdapter.RowUpdated">RowUpdated</see> events.
-            </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">A <see cref="T:Npgsql.NpgsqlRowUpdatedEventArgs">NpgsqlRowUpdatedEventArgs</see> that contains the event data.</param>
-        </member>
-        <member name="T:Npgsql.NpgsqlRowUpdatingEventHandler">
-            <summary>
-            Represents the method that handles the <see cref="E:Npgsql.NpgsqlDataAdapter.RowUpdating">RowUpdating</see> events.
-            </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">A <see cref="T:Npgsql.NpgsqlRowUpdatingEventArgs">NpgsqlRowUpdatingEventArgs</see> that contains the event data.</param>
-        </member>
-        <member name="T:Npgsql.NpgsqlDataAdapter">
-            <summary>
-            This class represents an adapter from many commands: select, update, insert and delete to fill <see cref="T:System.Data.DataSet">Datasets.</see>
-            </summary>
-        </member>
-        <member name="E:Npgsql.NpgsqlDataAdapter.RowUpdated">
-            <summary>
-            Row updated event.
-            </summary>
-        </member>
-        <member name="E:Npgsql.NpgsqlDataAdapter.RowUpdating">
-            <summary>
-            Row updating event.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.#ctor(Npgsql.NpgsqlCommand)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="selectCommand"></param>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.#ctor(System.String,Npgsql.NpgsqlConnection)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="selectCommandText"></param>
-            <param name="selectConnection"></param>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.#ctor(System.String,System.String)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="selectCommandText"></param>
-            <param name="selectConnectionString"></param>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Create row updated event.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Create row updating event.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.OnRowUpdated(System.Data.Common.RowUpdatedEventArgs)">
-            <summary>
-            Raise the RowUpdated event.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:Npgsql.NpgsqlDataAdapter.OnRowUpdating(System.Data.Common.RowUpdatingEventArgs)">
-            <summary>
-            Raise the RowUpdating event.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="P:Npgsql.NpgsqlDataAdapter.DeleteCommand">
-            <summary>
-            Delete command.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlDataAdapter.SelectCommand">
-            <summary>
-            Select command.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlDataAdapter.UpdateCommand">
-            <summary>
-            Update command.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlDataAdapter.InsertCommand">
-            <summary>
-            Insert command.
-            </summary>
-        </member>
         <member name="T:Npgsql.NpgsqlException">
             <summary>
             The exception that is thrown when server-related issues occur.
@@ -3485,42 +3135,6 @@
             <param name="size">The length of the parameter.</param>
             <param name="sourceColumn">The name of the source column.</param>
         </member>
-        <member name="M:Npgsql.NpgsqlParameter.#ctor(System.String,NpgsqlTypes.NpgsqlDbType,System.Int32,System.String,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.Data.DataRowVersion,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see>.
-            </summary>
-            <param name="parameterName">The name of the parameter to map.</param>
-            <param name="parameterType">One of the <see cref="T:NpgsqlTypes.NpgsqlDbType">NpgsqlDbType</see> values.</param>
-            <param name="size">The length of the parameter.</param>
-            <param name="sourceColumn">The name of the source column.</param>
-            <param name="direction">One of the <see cref="T:System.Data.ParameterDirection">ParameterDirection</see> values.</param>
-            <param name="isNullable"><b>true</b> if the value of the field can be null, otherwise <b>false</b>.</param>
-            <param name="precision">The total number of digits to the left and right of the decimal point to which
-            <see cref="P:Npgsql.NpgsqlParameter.Value">Value</see> is resolved.</param>
-            <param name="scale">The total number of decimal places to which
-            <see cref="P:Npgsql.NpgsqlParameter.Value">Value</see> is resolved.</param>
-            <param name="sourceVersion">One of the <see cref="T:System.Data.DataRowVersion">DataRowVersion</see> values.</param>
-            <param name="value">An <see cref="T:System.Object">Object</see> that is the value
-            of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see>.</param>
-        </member>
-        <member name="M:Npgsql.NpgsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32,System.String,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.Data.DataRowVersion,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see>.
-            </summary>
-            <param name="parameterName">The name of the parameter to map.</param>
-            <param name="parameterType">One of the <see cref="T:System.Data.DbType">DbType</see> values.</param>
-            <param name="size">The length of the parameter.</param>
-            <param name="sourceColumn">The name of the source column.</param>
-            <param name="direction">One of the <see cref="T:System.Data.ParameterDirection">ParameterDirection</see> values.</param>
-            <param name="isNullable"><b>true</b> if the value of the field can be null, otherwise <b>false</b>.</param>
-            <param name="precision">The total number of digits to the left and right of the decimal point to which
-            <see cref="P:Npgsql.NpgsqlParameter.Value">Value</see> is resolved.</param>
-            <param name="scale">The total number of decimal places to which
-            <see cref="P:Npgsql.NpgsqlParameter.Value">Value</see> is resolved.</param>
-            <param name="sourceVersion">One of the <see cref="T:System.Data.DataRowVersion">DataRowVersion</see> values.</param>
-            <param name="value">An <see cref="T:System.Object">Object</see> that is the value
-            of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see>.</param>
-        </member>
         <member name="P:Npgsql.NpgsqlParameter.Value">
             <summary>
             Gets or sets the value of the parameter.
@@ -3600,14 +3214,6 @@
             </summary>
             <value>The name of the source column that is mapped to the DataSet.
             The default is an empty string.</value>
-        </member>
-        <member name="P:Npgsql.NpgsqlParameter.SourceVersion">
-            <summary>
-            Gets or sets the <see cref="T:System.Data.DataRowVersion">DataRowVersion</see>
-            to use when loading <see cref="P:Npgsql.NpgsqlParameter.Value">Value</see>.
-            </summary>
-            <value>One of the <see cref="T:System.Data.DataRowVersion">DataRowVersion</see> values.
-            The default is <b>Current</b>.</value>
         </member>
         <member name="P:Npgsql.NpgsqlParameter.SourceColumnNullMapping">
             <summary>
@@ -3793,11 +3399,6 @@
             <param name="parameterName">The name of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see> object to find.</param>
             <returns>The zero-based location of the <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see> in the collection.</returns>
         </member>
-        <member name="P:Npgsql.NpgsqlParameterCollection.IsReadOnly">
-            <summary>
-            Report whether the collection is read only.  Always false.
-            </summary>
-        </member>
         <member name="M:Npgsql.NpgsqlParameterCollection.RemoveAt(System.Int32)">
             <summary>
             Removes the specified <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see> from the collection using a specific index.
@@ -3856,16 +3457,6 @@
             </summary>
             <param name="value">The <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see> to add to the collection.</param>
             <returns>The zero-based index of the new <see cref="T:Npgsql.NpgsqlParameter">NpgsqlParameter</see> object.</returns>
-        </member>
-        <member name="P:Npgsql.NpgsqlParameterCollection.IsFixedSize">
-            <summary>
-            Report whether the collection is fixed size.  Always false.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlParameterCollection.IsSynchronized">
-            <summary>
-            Report whether the collection is synchronized.
-            </summary>
         </member>
         <member name="P:Npgsql.NpgsqlParameterCollection.Count">
             <summary>
@@ -3966,11 +3557,6 @@
             </summary>
             <returns>NpgsqlParameter[]</returns>
         </member>
-        <member name="M:Npgsql.NpgsqlPromotableSinglePhaseNotification.Prepare">
-            <summary>
-            Used when a connection is closed
-            </summary>
-        </member>
         <member name="T:Npgsql.NpgsqlRawCopyStream">
             <summary>
             Provides an API for a raw binary COPY operation, a high-performance data import/export mechanism to
@@ -4014,68 +3600,6 @@
         <member name="M:Npgsql.NpgsqlCopyTextReader.Cancel">
             <summary>
             Cancels and terminates an ongoing import.
-            </summary>
-        </member>
-        <member name="T:Npgsql.NpgsqlSchema">
-            <summary>
-            Provides the underlying mechanism for reading schema information.
-            </summary>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetMetaDataCollections">
-            <summary>
-            Returns the MetaDataCollections that lists all possible collections.
-            </summary>
-            <returns>The MetaDataCollections</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetRestrictions">
-            <summary>
-            Returns the Restrictions that contains the meaning and position of the values in the restrictions array.
-            </summary>
-            <returns>The Restrictions</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetDatabases(Npgsql.NpgsqlConnection,System.String[])">
-            <summary>
-            Returns the Databases that contains a list of all accessable databases.
-            </summary>
-            <param name="conn">The database connection on which to run the metadataquery.</param>
-            <param name="restrictions">The restrictions to filter the collection.</param>
-            <returns>The Databases</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetTables(Npgsql.NpgsqlConnection,System.String[])">
-            <summary>
-            Returns the Tables that contains table and view names and the database and schema they come from.
-            </summary>
-            <param name="conn">The database connection on which to run the metadataquery.</param>
-            <param name="restrictions">The restrictions to filter the collection.</param>
-            <returns>The Tables</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetColumns(Npgsql.NpgsqlConnection,System.String[])">
-            <summary>
-            Returns the Columns that contains information about columns in tables.
-            </summary>
-            <param name="conn">The database connection on which to run the metadataquery.</param>
-            <param name="restrictions">The restrictions to filter the collection.</param>
-            <returns>The Columns.</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetViews(Npgsql.NpgsqlConnection,System.String[])">
-            <summary>
-            Returns the Views that contains view names and the database and schema they come from.
-            </summary>
-            <param name="conn">The database connection on which to run the metadataquery.</param>
-            <param name="restrictions">The restrictions to filter the collection.</param>
-            <returns>The Views</returns>
-        </member>
-        <member name="M:Npgsql.NpgsqlSchema.GetUsers(Npgsql.NpgsqlConnection,System.String[])">
-            <summary>
-            Returns the Users containing user names and the sysid of those users.
-            </summary>
-            <param name="conn">The database connection on which to run the metadataquery.</param>
-            <param name="restrictions">The restrictions to filter the collection.</param>
-            <returns>The Users.</returns>
-        </member>
-        <member name="F:Npgsql.NpgsqlSchema.ReservedKeywords">
-            <summary>
-            List of keywords taken from PostgreSQL 9.0 reserved words documentation.
             </summary>
         </member>
         <member name="T:Npgsql.NpgsqlStatement">
@@ -4325,13 +3849,6 @@
             <summary>
             Gets a collection of key/value pairs that provide additional PostgreSQL fields about the exception.
             </summary>
-        </member>
-        <member name="M:Npgsql.PostgresException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with the data needed to serialize the target object.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> to populate with data.</param>
-            <param name="context">The destination (see <see cref="T:System.Runtime.Serialization.StreamingContext"/>) for this serialization.</param>
         </member>
         <member name="T:Npgsql.PostgresNotice">
             <summary>
@@ -4784,14 +4301,6 @@
             <summary>
             Given a CLR member name (property or field), translates its name to a database type name.
             </summary>
-        </member>
-        <member name="T:Npgsql.Schema.DbColumn">
-            <summary>
-            A copy of corefx's DbColumn, used only in .NET Framework where we don't have it.
-            </summary>
-            <remarks>
-            See https://github.com/dotnet/corefx/blob/master/src/System.Data.Common/src/System/Data/Common/DbColumn.cs
-            </remarks>
         </member>
         <member name="M:Npgsql.Schema.DbColumnSchemaGenerator.ColumnPostConfig(Npgsql.Schema.NpgsqlDbColumn,System.Int32)">
             <summary>

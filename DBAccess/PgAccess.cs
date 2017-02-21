@@ -15,7 +15,16 @@ namespace DBAccess
         public PgAccess(string connectionString) : base(connectionString)
         {
             NpgsqlConnectionStringBuilder conectionstring = new NpgsqlConnectionStringBuilder(connectionString);
-            this.connection = new NpgsqlConnection(conectionstring.ConnectionString);
+            try
+            {
+                this.connection = new NpgsqlConnection(conectionstring.ConnectionString);
+            }
+            catch (NpgsqlException e)
+            {
+                this.ProcessException(e);
+            }
+            
+            this.Connect();
         }
 
         public override void Connect()
