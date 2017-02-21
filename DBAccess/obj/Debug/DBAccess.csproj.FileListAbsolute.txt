@@ -3,3 +3,6 @@ c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.csprojResolveAssemblyReference.cache
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.dll
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.pdb
+C:\Users\roke1\Desktop\Utn\4 cuatri\Progra 3\DBAccess\DBAccess\obj\Debug\DBAccess.csprojResolveAssemblyReference.cache
+C:\Users\roke1\Desktop\Utn\4 cuatri\Progra 3\DBAccess\DBAccess\obj\Debug\DBAccess.dll
+C:\Users\roke1\Desktop\Utn\4 cuatri\Progra 3\DBAccess\DBAccess\obj\Debug\DBAccess.pdb

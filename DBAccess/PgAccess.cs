@@ -9,6 +9,10 @@ namespace DBAccess
 {
     class PgAccess : DBAccess
     {
+        public PgAccess(string connectionString) : base(connectionString)
+        {
+        }
+
         public override void Connect()
         {
             throw new NotImplementedException();

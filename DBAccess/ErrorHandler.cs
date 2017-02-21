@@ -10,5 +10,16 @@ namespace DBAccess
     {
         public bool isError { get; set; }
         public string errorDescription { get; set; }
+       public void ProcessException(Exception e)
+        {
+            this.isError = true;
+            this.errorDescription = e.Message;
+        }
+
+        public void CleanStatus()
+        {
+            this.isError = false;
+            this.errorDescription = string.Empty;
+        }
     }
 }
