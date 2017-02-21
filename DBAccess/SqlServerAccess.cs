@@ -7,17 +7,17 @@ namespace DBAccess
     public class SqlServerAccess : DBAccess
     {
 
-        private String connectionString;
+
         private SqlConnection conn;
 
         public SqlServerAccess(string connectionString) : base(connectionString)
         {
-            this.connectionString = connectionString;
+            conn = new SqlConnection();
+            conn.ConnectionString = connectionString;
         }
         public override void Connect()
-        {
-            conn = new SqlConnection();
-            conn.ConnectionString = this.ConnectionString();
+        {          
+            
             try
             {
                 this.CleanStatus();
@@ -73,19 +73,6 @@ namespace DBAccess
             {
                 ProcessException(e);
             }
-        }
-
-
-        private String ConnectionString()
-        {
-            String[] datos = connectionString.Split(',');
-
-            return String.Format("data source={0};initial catalog={1};user id={2};password={3}",
-                    datos[0],
-                    datos[1],
-                    datos[2],
-                    datos[3]
-            );
         }
     }
 }
