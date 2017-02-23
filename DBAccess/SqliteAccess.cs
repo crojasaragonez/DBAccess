@@ -11,6 +11,7 @@ namespace DBAccess
 {
     class SqliteAccess : DBAccess
     {
+        // Conection
         private SQLiteConnection connection;
         public SqliteAccess(string connectionString) : base(connectionString)
         {
@@ -27,6 +28,7 @@ namespace DBAccess
 
 
         }
+        // conectarse
         public override void Connect()
         {
             if (this.connection.State == ConnectionState.Open)
@@ -40,7 +42,7 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
+        //Desconectarse
         public override void Disconnect()
         {
             try
