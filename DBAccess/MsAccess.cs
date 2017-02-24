@@ -23,12 +23,12 @@ namespace DBAccess
             throw new NotImplementedException();
         }
 
-        public override DataTable SqlQuery(string sql)
+        public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             throw new NotImplementedException();
         }
 
-        public override void SqlStatement(string pSql)
+        public override void SqlStatement(string sql, IDictionary<string, object> parameters)
         {
             throw new NotImplementedException();
         }
