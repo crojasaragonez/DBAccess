@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.OleDb;
 using System.Data;
-using System.Configuration;
 using System.Collections.Generic;
 
 namespace DBAccess
@@ -9,13 +8,14 @@ namespace DBAccess
    public class MsAccess : DBAccess
     {
         private OleDbConnection con;
+        private OleDbCommand CmdSql;
         public MsAccess(string connectionString) : base(connectionString)
         {
             try
             {
                 this.con = new OleDbConnection(connectionString);
             }
-            catch (Exception e)
+            catch (OleDbException e)
             {
                 this.ProcessException(e);
             }
@@ -30,7 +30,7 @@ namespace DBAccess
             {
                 con.Open();
             }
-            catch (Exception e)
+            catch (OleDbException e)
             {
                 this.ProcessException(e);
             }    
@@ -43,7 +43,7 @@ namespace DBAccess
             {
                 con.Close();
             }
-            catch (Exception ex)
+            catch (OleDbException ex)
             {
                 this.ProcessException(ex);
             }      
@@ -55,16 +55,13 @@ namespace DBAccess
             DataTable retorno = null;
             try
             {
-                OleDbCommand myCmd = new OleDbCommand(sql, con);
-                foreach (var item in parameters)
-                {
-                    myCmd.Parameters.AddWithValue(item.Key, item.Value);
-                }
-                OleDbDataAdapter dat = new OleDbDataAdapter(myCmd);
-                dat.SelectCommand = myCmd;
+                CmdSql = new OleDbCommand(sql, con);
+                this.addParameters(parameters);
+                OleDbDataAdapter dat = new OleDbDataAdapter(CmdSql);
+                dat.SelectCommand = CmdSql;
                 dat.Fill(retorno);
             }
-            catch (Exception ex)
+            catch (OleDbException ex)
             {
                 this.ProcessException(ex);
             } 
@@ -76,19 +73,29 @@ namespace DBAccess
             this.CleanStatus();
             try
             {
-                OleDbCommand CmdSql = new OleDbCommand(pSql, con);
-                foreach (var item in parameters)
-                {
-                    CmdSql.Parameters.AddWithValue(item.Key, item.Value);
-                }
-             
+                CmdSql = new OleDbCommand(pSql, con);
+                this.addParameters(parameters);
                 CmdSql.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (OleDbException ex)
             {
                 this.ProcessException(ex);
             }
 
+        }
+        private void addParameters(IDictionary<string, Object> parameters)
+        {
+            try
+            {
+                foreach (var item in parameters)
+                {
+                    this.CmdSql.Parameters.AddWithValue(item.Key, item.Value);
+                }
+            }
+            catch (OleDbException ex)
+            {
+                this.ProcessException(ex);
+            }        
         }
     }
 }
