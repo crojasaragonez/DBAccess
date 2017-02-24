@@ -8,11 +8,9 @@ namespace DBAccess
 {
    public class MsAccess : DBAccess
     {
-        private DataSet set;
         private OleDbConnection con;
         public MsAccess(string connectionString) : base(connectionString)
         {
-            set = new DataSet();
             try
             {
                 this.con = new OleDbConnection(connectionString);
