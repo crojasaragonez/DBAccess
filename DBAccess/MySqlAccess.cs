@@ -37,7 +37,7 @@ namespace DBAccess
             }
         }
 
-        public override DataTable SqlQuery(string sql)
+        public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(sql, this.connection);
             DataTable result = new DataTable();
@@ -54,7 +54,7 @@ namespace DBAccess
             return result;
         }
 
-        public override void SqlStatement(string pSql)
+        public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -44,7 +45,7 @@ namespace DBAccess
 
         }
 
-        public override DataTable SqlQuery(string sql)
+        public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             DataTable data = new DataTable();
 
@@ -61,7 +62,7 @@ namespace DBAccess
             return data;
         }
 
-        public override void SqlStatement(string pSql)
+        public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
             {
