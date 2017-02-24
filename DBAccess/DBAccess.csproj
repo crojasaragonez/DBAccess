@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBAccess.cs" />
+    <Compile Include="DBTypeResolver.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="MsAccess.cs" />
     <Compile Include="MySqlAccess.cs" />
