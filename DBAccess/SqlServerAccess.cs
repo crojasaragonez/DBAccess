@@ -17,15 +17,16 @@ namespace DBAccess
             conn.ConnectionString = connectionString;
         }
         public override void Connect()
-        {          
-            
+        {
+
+            if (this.conn.State == ConnectionState.Open) return;
             try
             {
                 this.CleanStatus();
                 conn.Open();
 
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 ProcessException(e);
             }
@@ -38,7 +39,7 @@ namespace DBAccess
             {
                 conn.Close();
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 ProcessException(e);
             }
@@ -52,10 +53,11 @@ namespace DBAccess
             try
             {
                 this.CleanStatus();
-                SqlCommand result = new SqlCommand(sql, conn);
-                data.Load(result.ExecuteReader());
+                SqlCommand sqlC = AddParameters(sql, parameters);
+
+                data.Load(sqlC.ExecuteReader());
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 ProcessException(e);
             }
@@ -67,13 +69,26 @@ namespace DBAccess
             try
             {
                 this.CleanStatus();
-                SqlCommand result = new SqlCommand(pSql, conn);
-                result.ExecuteNonQuery();
+                SqlCommand sqlC = this.AddParameters(pSql, parameters);    
+                sqlC.ExecuteNonQuery();
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 ProcessException(e);
             }
         }
+
+        private SqlCommand AddParameters(string sql, IDictionary<string, Object> parameters)
+        {
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.CommandType = CommandType.Text;
+            foreach (var parameter in parameters)
+            {
+                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+            }
+            return cmd;
+        }
     }
+
 }
+
