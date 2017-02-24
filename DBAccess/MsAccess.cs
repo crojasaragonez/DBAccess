@@ -44,7 +44,7 @@ namespace DBAccess
             }      
         }
 
-        public override DataTable SqlQuery(string sql)
+        public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
             DataTable retorno = null;
@@ -60,7 +60,7 @@ namespace DBAccess
             return retorno;
         }
 
-        public override void SqlStatement(string pSql)
+        public override void SqlStatement(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
             try

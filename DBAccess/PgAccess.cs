@@ -52,7 +52,7 @@ namespace DBAccess
             }
         }
 
-        public override DataTable SqlQuery(string sql)
+        public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
             NpgsqlDataAdapter oDataAdapter = new NpgsqlDataAdapter(sql, this.connection);
@@ -70,7 +70,7 @@ namespace DBAccess
             return result;
         }
 
-        public override void SqlStatement(string sql)
+        public override void SqlStatement(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
             try
