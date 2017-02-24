@@ -16,7 +16,7 @@ namespace DBAccess
         }
         public abstract void Connect();
         public abstract void Disconnect();
-        public abstract DataTable SqlQuery(string sql);
-        public abstract void SqlStatement(String pSql);
+        public abstract DataTable SqlQuery(string sql, IDictionary<string, Object> parameters);
+        public abstract void SqlStatement(string sql, IDictionary<string, Object> parameters);
     }
 }
