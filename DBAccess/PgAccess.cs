@@ -92,9 +92,7 @@ namespace DBAccess
             cmd.CommandType = CommandType.Text;
             foreach (var parameter in parameters)
             {
-                NpgsqlParameter p = new NpgsqlParameter(parameter.Key, parameter.Value);
-                p.DbType = DBTypeResolver.Resolve(parameter.Value.GetType());
-                cmd.Parameters.Add(p);
+                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
             return cmd;
         }
