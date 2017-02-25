@@ -75,9 +75,8 @@ namespace DBAccess
             this.CleanStatus();
             try
             {
-                SQLiteCommand cmd = new SQLiteCommand(pSql, this.connection);
+                SQLiteCommand cmd = this.AddParameters(pSql, parameters);
                 cmd.ExecuteNonQuery();
-
             }
             catch (SQLiteException e)
             {
