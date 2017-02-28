@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 
@@ -8,9 +10,11 @@ namespace DBAccess
     {
 
         private MySqlConnection connection;
+        private MySqlCommand cmd;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
             connection = new MySqlConnection(connectionString);
+            this.Connect();
         }
         public override void Connect()
         {
@@ -39,7 +43,10 @@ namespace DBAccess
 
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
-            MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(sql, this.connection);
+            this.cmd = this.AddParameters(sql, parameters);
+            
+            MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(cmd);
+            this.cmd.ExecuteNonQuery();
             DataTable result = new DataTable();
             result.Locale = CultureInfo.InvariantCulture;
             try
@@ -50,7 +57,6 @@ namespace DBAccess
             {
                 throw e;
             }
-
             return result;
         }
 
@@ -58,14 +64,30 @@ namespace DBAccess
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand(pSql, this.connection);
-                cmd.ExecuteNonQuery();
+                this.cmd = this.AddParameters(pSql, parameters);
+                this.cmd.ExecuteNonQuery();
             }
             catch (MySqlException e)
             {
                 throw e;
             }
-            
+
+        }
+
+        private MySqlCommand AddParameters(string sql, IDictionary<string, object> parameters)
+        {
+            MySqlCommand cmd = new MySqlCommand(sql, this.connection);
+            cmd.CommandType = CommandType.Text;
+            foreach (var parameter in parameters)
+            {
+                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+            }
+            return cmd;
+        }
+
+        public override string LastInsertedId()
+        {
+            return this.cmd.LastInsertedId.ToString();
         }
     }
 }
