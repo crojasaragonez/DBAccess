@@ -10,7 +10,6 @@ namespace DBAccess
     {
 
         private MySqlConnection connection;
-        private MySqlCommand cmd;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
             connection = new MySqlConnection(connectionString);
@@ -43,10 +42,10 @@ namespace DBAccess
 
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
-            this.cmd = this.AddParameters(sql, parameters);
+            MySqlCommand cmd = this.AddParameters(sql, parameters);
             
             MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(cmd);
-            this.cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
             DataTable result = new DataTable();
             result.Locale = CultureInfo.InvariantCulture;
             try
@@ -64,8 +63,8 @@ namespace DBAccess
         {
             try
             {
-                this.cmd = this.AddParameters(pSql, parameters);
-                this.cmd.ExecuteNonQuery();
+                MySqlCommand cmd = this.AddParameters(pSql, parameters);
+                cmd.ExecuteNonQuery();
             }
             catch (MySqlException e)
             {
@@ -83,11 +82,6 @@ namespace DBAccess
                 cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
             return cmd;
-        }
-
-        public override string LastInsertedId()
-        {
-            return this.cmd.LastInsertedId.ToString();
         }
     }
 }
