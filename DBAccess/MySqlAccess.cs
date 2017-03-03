@@ -36,7 +36,7 @@ namespace DBAccess
             }
             catch (MySqlException ex)
             {
-                throw ex;
+                this.ProcessException(ex);
             }
         }
 
@@ -52,9 +52,9 @@ namespace DBAccess
             {
                 oDataAdapter.Fill(result);
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                this.ProcessException(ex);
             }
             return result;
         }
@@ -66,9 +66,9 @@ namespace DBAccess
                 MySqlCommand cmd = this.AddParameters(pSql, parameters);
                 cmd.ExecuteNonQuery();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                this.ProcessException(ex);
             }
 
         }
