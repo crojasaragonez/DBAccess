@@ -88,6 +88,21 @@ namespace DBAccess
             }
             return cmd;
         }
+
+        public override void BeginTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RollbackTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CommitTransaction()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

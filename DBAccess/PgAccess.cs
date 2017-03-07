@@ -12,9 +12,13 @@ namespace DBAccess
     public class PgAccess : DBAccess
     {
         private NpgsqlConnection connection;
+        private NpgsqlTransaction transaction;
+        private bool inTransaction;
+
 
         public PgAccess(string connectionString) : base(connectionString)
         {
+            this.inTransaction = false;
             NpgsqlConnectionStringBuilder conectionstring = new NpgsqlConnectionStringBuilder(connectionString);
             try
             {
@@ -94,7 +98,36 @@ namespace DBAccess
             {
                 cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
+
+            if (this.inTransaction) {
+                cmd.Transaction = this.transaction;
+            }
+
             return cmd;
+        }
+
+        public override void BeginTransaction()
+        {
+            if (!inTransaction) {
+                this.transaction = this.connection.BeginTransaction();
+                this.inTransaction = true;
+            }
+        }
+
+        public override void RollbackTransaction()
+        {
+            if (this.inTransaction) {
+                this.transaction.Rollback();
+                this.inTransaction = false;
+            }
+        }
+
+        public override void CommitTransaction()
+        {
+            if (this.inTransaction) {
+                this.transaction.Commit();
+                this.inTransaction = false;
+            }
         }
     }
 }

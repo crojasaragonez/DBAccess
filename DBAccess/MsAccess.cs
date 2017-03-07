@@ -97,5 +97,20 @@ namespace DBAccess
                 this.ProcessException(ex);
             }        
         }
+
+        public override void BeginTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RollbackTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void CommitTransaction()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

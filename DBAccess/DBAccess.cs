@@ -18,5 +18,8 @@ namespace DBAccess
         public abstract void Disconnect();
         public abstract DataTable SqlQuery(string sql, IDictionary<string, Object> parameters);
         public abstract void SqlStatement(string sql, IDictionary<string, Object> parameters);
+        public abstract void BeginTransaction();
+        public abstract void RollbackTransaction();
+        public abstract void CommitTransaction();
     }
 }
