@@ -10,9 +10,21 @@ namespace DBAccess
     {
 
         private MySqlConnection connection;
+        private MySqlTransaction transaction;
+        private bool inTransaction;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
-            connection = new MySqlConnection(connectionString);
+            this.inTransaction = false;
+            MySqlConnectionStringBuilder conectionstring = new MySqlConnectionStringBuilder(connectionString);
+            try
+            {
+                this.connection = new MySqlConnection(conectionstring.ConnectionString);
+            }
+            catch (MySqlException e)
+            {
+                this.ProcessException(e);
+            }
+
             this.Connect();
         }
         public override void Connect()
@@ -43,7 +55,7 @@ namespace DBAccess
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             MySqlCommand cmd = this.AddParameters(sql, parameters);
-            
+
             MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(cmd);
             cmd.ExecuteNonQuery();
             DataTable result = new DataTable();
@@ -86,17 +98,29 @@ namespace DBAccess
 
         public override void BeginTransaction()
         {
-            throw new NotImplementedException();
+            if (!inTransaction)
+            {
+                this.transaction = this.connection.BeginTransaction();
+                this.inTransaction = true;
+            }
         }
 
         public override void RollbackTransaction()
         {
-            throw new NotImplementedException();
+            if (this.inTransaction)
+            {
+                this.transaction.Rollback();
+                this.inTransaction = false;
+            }
         }
 
         public override void CommitTransaction()
         {
-            throw new NotImplementedException();
+            if (this.inTransaction)
+            {
+                this.transaction.Commit();
+                this.inTransaction = false;
+            }
         }
     }
 }
