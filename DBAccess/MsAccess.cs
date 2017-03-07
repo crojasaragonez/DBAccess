@@ -9,8 +9,11 @@ namespace DBAccess
     {
         private OleDbConnection con;
         private OleDbCommand CmdSql;
+        private OleDbTransaction transaction;
+        private bool inTransaction;
         public MsAccess(string connectionString) : base(connectionString)
         {
+            this.inTransaction = false;
             try
             {
                 this.con = new OleDbConnection(connectionString);
@@ -91,6 +94,10 @@ namespace DBAccess
                 {
                     this.CmdSql.Parameters.AddWithValue(item.Key, item.Value);
                 }
+                if (inTransaction)
+                {
+                    CmdSql.Transaction = this.transaction;
+                }  
             }
             catch (OleDbException ex)
             {
@@ -100,17 +107,30 @@ namespace DBAccess
 
         public override void BeginTransaction()
         {
-            throw new NotImplementedException();
+            if (!inTransaction)
+            {
+                this.transaction = this.con.BeginTransaction();
+                this.inTransaction = true;
+            }
+           
         }
 
         public override void RollbackTransaction()
         {
-            throw new NotImplementedException();
+            if (inTransaction)
+            {
+                this.transaction.Rollback();
+                this.inTransaction = false;
+            }
         }
 
         public override void CommitTransaction()
         {
-            throw new NotImplementedException();
+            if (inTransaction)
+            {
+                this.transaction.Commit();
+                this.inTransaction = false;
+            }
         }
     }
 }
