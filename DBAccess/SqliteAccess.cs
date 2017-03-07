@@ -9,8 +9,11 @@ namespace DBAccess
     class SqliteAccess : DBAccess
     {
         private SQLiteConnection connection;
+        private SQLiteTransaction transaction;
+        private bool inTransaction;
         public SqliteAccess(string connectionString) : base(connectionString)
         {
+            this.inTransaction = false;
             SQLiteConnectionStringBuilder connectionstring = new SQLiteConnectionStringBuilder(connectionString);
             try
             {
@@ -91,22 +94,38 @@ namespace DBAccess
             {
                 cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
+            if (this.inTransaction)
+            {
+                cmd.Transaction = this.transaction;
+            }
             return cmd;
         }
 
         public override void BeginTransaction()
         {
-            throw new NotImplementedException();
+            if (!inTransaction)
+            {
+                this.transaction = this.connection.BeginTransaction();
+                this.inTransaction = true;
+            }
         }
 
         public override void RollbackTransaction()
         {
-            throw new NotImplementedException();
+            if (this.inTransaction)
+            {
+                this.transaction.Rollback();
+                this.inTransaction = false;
+            }
         }
 
         public override void CommitTransaction()
         {
-            throw new NotImplementedException();
+            if (this.inTransaction)
+            {
+                this.transaction.Commit();
+                this.inTransaction = false;
+            }
         }
     }
 }
