@@ -18,3 +18,4 @@ C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\
 C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Data.SQLite.xml
 C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\MySql.Data.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.csprojResolveAssemblyReference.cache

@@ -9,51 +9,50 @@ namespace DBAccess
     {
         private OdbcTransaction transaction;
         private OdbcConnection connection;
-
         public SqlServerAccessODBC(string connectionString) : base(connectionString)
         {
-            connection = new OdbcConnection();
-            connection.ConnectionString = connectionString;
+            OdbcConnectionStringBuilder connectionstring = new OdbcConnectionStringBuilder(connectionString);
+            try
+            {
+                this.connection = new OdbcConnection(connectionstring.ConnectionString);
+            }
+            catch (OdbcException e)
+            {
+                this.ProcessException(e);
+            }
+            this.Connect();
         }
         public override void Connect()
         {
-
             if (this.connection.State == ConnectionState.Open) return;
             try
             {
-    this.CleanStatus();
-    connection.Open();
-    
-                }
+                this.CleanStatus();
+                this.connection.Open();
+            }
             catch (OdbcException e)
             {
-    ProcessException(e);
-                }
-
+                ProcessException(e);
+            }
         }
-
         public override void Disconnect()
         {
             try
-           {
+            {
                 connection.Close();
             }
             catch (OdbcException e)
             {
                 ProcessException(e);
             }
-
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             DataTable data = new DataTable();
-
             try
             {
                 this.CleanStatus();
                 OdbcCommand sqlC = AddParameters(sql, parameters);
-
                 data.Load(sqlC.ExecuteReader());
             }
             catch (OdbcException e)
@@ -62,11 +61,10 @@ namespace DBAccess
             }
             return data;
         }
-
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
-           {
+            {
                 this.CleanStatus();
                 OdbcCommand sqlC = this.AddParameters(pSql, parameters);
                 sqlC.ExecuteNonQuery();
@@ -76,7 +74,6 @@ namespace DBAccess
                 ProcessException(e);
             }
         }
-
         private OdbcCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
             OdbcCommand cmd = new OdbcCommand(sql, connection);
@@ -121,17 +118,12 @@ namespace DBAccess
 
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
-            
-
             this.CleanStatus();
             object result = null;
-
             try
             {
-
                 OdbcCommand sqlC = this.AddParameters(sql, parameters);
                 result = sqlC.ExecuteScalar();
-
             }
             catch (OdbcException e)
             {
@@ -140,7 +132,7 @@ namespace DBAccess
             return result;
         }
     }
-    }
+}
 
 
 
