@@ -13,12 +13,8 @@ namespace DBAccess
     {
         private NpgsqlConnection connection;
         private NpgsqlTransaction transaction;
-        private bool inTransaction;
-
-
         public PgAccess(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
             NpgsqlConnectionStringBuilder conectionstring = new NpgsqlConnectionStringBuilder(connectionString);
             try
             {
@@ -31,7 +27,6 @@ namespace DBAccess
 
             this.Connect();
         }
-
         public override void Connect()
         {
             if (this.connection.State == ConnectionState.Open) return;
@@ -44,7 +39,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
         public override void Disconnect()
         {
             try
@@ -56,7 +50,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
@@ -75,7 +68,10 @@ namespace DBAccess
 
             return result;
         }
-
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
         public override void SqlStatement(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
@@ -89,7 +85,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
         private NpgsqlCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(sql, this.connection);
@@ -105,7 +100,6 @@ namespace DBAccess
 
             return cmd;
         }
-
         public override void BeginTransaction()
         {
             if (!inTransaction) {
@@ -113,7 +107,6 @@ namespace DBAccess
                 this.inTransaction = true;
             }
         }
-
         public override void RollbackTransaction()
         {
             if (this.inTransaction) {
@@ -121,7 +114,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (this.inTransaction) {

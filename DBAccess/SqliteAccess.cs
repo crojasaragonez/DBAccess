@@ -10,10 +10,8 @@ namespace DBAccess
     {
         private SQLiteConnection connection;
         private SQLiteTransaction transaction;
-        private bool inTransaction;
         public SqliteAccess(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
             SQLiteConnectionStringBuilder connectionstring = new SQLiteConnectionStringBuilder(connectionString);
             try
             {
@@ -24,8 +22,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             this.Connect();
-
-
         }
         public override void Connect()
         {
@@ -40,7 +36,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
         public override void Disconnect()
         {
             try
@@ -52,7 +47,6 @@ namespace DBAccess
                 this.ProcessException(e);
             }
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
@@ -72,7 +66,10 @@ namespace DBAccess
 
             return result;
         }
-
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
         public override void SqlStatement(string pSql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
@@ -100,7 +97,6 @@ namespace DBAccess
             }
             return cmd;
         }
-
         public override void BeginTransaction()
         {
             if (!inTransaction)
@@ -109,7 +105,6 @@ namespace DBAccess
                 this.inTransaction = true;
             }
         }
-
         public override void RollbackTransaction()
         {
             if (this.inTransaction)
@@ -118,7 +113,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (this.inTransaction)

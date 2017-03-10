@@ -1,6 +1,5 @@
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\DBAccess.dll
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\DBAccess.pdb
-c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.csprojResolveAssemblyReference.cache
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.dll
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.pdb
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\Microsoft.Extensions.Logging.dll

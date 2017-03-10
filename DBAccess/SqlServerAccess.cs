@@ -7,14 +7,10 @@ namespace DBAccess
 {
     public class SqlServerAccess : DBAccess
     {
-
         private SqlTransaction transaction;
         private SqlConnection conn;
-        private bool inTransaction;
-
         public SqlServerAccess(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
             conn = new SqlConnection();
             conn.ConnectionString = connectionString;
         }
@@ -33,7 +29,6 @@ namespace DBAccess
             }
 
         }
-
         public override void Disconnect()
         {
             try
@@ -46,7 +41,6 @@ namespace DBAccess
             }
 
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             DataTable data = new DataTable();
@@ -64,7 +58,10 @@ namespace DBAccess
             }
             return data;
         }
-
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
@@ -78,7 +75,6 @@ namespace DBAccess
                 ProcessException(e);
             }
         }
-
         private SqlCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
             SqlCommand cmd = new SqlCommand(sql, conn);
@@ -94,7 +90,6 @@ namespace DBAccess
 
             return cmd;
         }
-
         public override void BeginTransaction()
         {
             if (!inTransaction)
@@ -103,7 +98,6 @@ namespace DBAccess
                 this.inTransaction = true;
             }
         }
-
         public override void RollbackTransaction()
         {
             if (this.inTransaction)
@@ -112,7 +106,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (this.inTransaction)
@@ -122,6 +115,5 @@ namespace DBAccess
             }
         }
     }
-
 }
 

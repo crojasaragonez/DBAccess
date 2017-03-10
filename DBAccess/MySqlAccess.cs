@@ -8,13 +8,10 @@ namespace DBAccess
 {
     public class MySqlAccess : DBAccess
     {
-
         private MySqlConnection connection;
         private MySqlTransaction transaction;
-        private bool inTransaction;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
             MySqlConnectionStringBuilder conectionstring = new MySqlConnectionStringBuilder(connectionString);
             try
             {
@@ -39,7 +36,6 @@ namespace DBAccess
                 throw e;
             }
         }
-
         public override void Disconnect()
         {
             try
@@ -51,7 +47,6 @@ namespace DBAccess
                 this.ProcessException(ex);
             }
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             MySqlCommand cmd = this.AddParameters(sql, parameters);
@@ -70,7 +65,10 @@ namespace DBAccess
             }
             return result;
         }
-
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
@@ -84,7 +82,6 @@ namespace DBAccess
             }
 
         }
-
         private MySqlCommand AddParameters(string sql, IDictionary<string, object> parameters)
         {
             MySqlCommand cmd = new MySqlCommand(sql, this.connection);
@@ -95,7 +92,6 @@ namespace DBAccess
             }
             return cmd;
         }
-
         public override void BeginTransaction()
         {
             if (!inTransaction)
@@ -104,7 +100,6 @@ namespace DBAccess
                 this.inTransaction = true;
             }
         }
-
         public override void RollbackTransaction()
         {
             if (this.inTransaction)
@@ -113,7 +108,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (this.inTransaction)

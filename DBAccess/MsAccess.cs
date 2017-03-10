@@ -7,16 +7,13 @@ namespace DBAccess
 {
    public class MsAccess : DBAccess
     {
-        private OleDbConnection con;
-        private OleDbCommand CmdSql;
+        private OleDbConnection connection;
         private OleDbTransaction transaction;
-        private bool inTransaction;
         public MsAccess(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
             try
             {
-                this.con = new OleDbConnection(connectionString);
+                this.connection = new OleDbConnection(connectionString);
             }
             catch (OleDbException e)
             {
@@ -28,38 +25,35 @@ namespace DBAccess
         public override void Connect()
         {
             this.CleanStatus();
-            if (this.con.State == ConnectionState.Open) return;
+            if (this.connection.State == ConnectionState.Open) return;
             try
             {
-                con.Open();
+                this.connection.Open();
             }
             catch (OleDbException e)
             {
                 this.ProcessException(e);
             }    
         }
-
         public override void Disconnect()
         {
             this.CleanStatus();
             try
             {
-                con.Close();
+                this.connection.Close();
             }
             catch (OleDbException ex)
             {
                 this.ProcessException(ex);
             }      
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
             DataTable retorno = null;
             try
             {
-                CmdSql = new OleDbCommand(sql, con);
-                this.addParameters(parameters);
+                OleDbCommand CmdSql = this.AddParameters(sql, parameters);
                 OleDbDataAdapter dat = new OleDbDataAdapter(CmdSql);
                 dat.SelectCommand = CmdSql;
                 dat.Fill(retorno);
@@ -70,51 +64,47 @@ namespace DBAccess
             } 
             return retorno;
         }
-
-        public override void SqlStatement(string pSql, IDictionary<string, Object> parameters)
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
+        public override void SqlStatement(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
             try
             {
-                CmdSql = new OleDbCommand(pSql, con);
-                this.addParameters(parameters);
+                OleDbCommand CmdSql = this.AddParameters(sql, parameters);
                 CmdSql.ExecuteNonQuery();
             }
             catch (OleDbException ex)
             {
                 this.ProcessException(ex);
             }
-
         }
-        private void addParameters(IDictionary<string, Object> parameters)
+        private OleDbCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
-            try
+            OleDbCommand cmd = new OleDbCommand(sql, this.connection);
+            cmd.CommandType = CommandType.Text;
+            foreach (var parameter in parameters)
             {
-                foreach (var item in parameters)
-                {
-                    this.CmdSql.Parameters.AddWithValue(item.Key, item.Value);
-                }
-                if (inTransaction)
-                {
-                    CmdSql.Transaction = this.transaction;
-                }  
+                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
-            catch (OleDbException ex)
-            {
-                this.ProcessException(ex);
-            }        
-        }
 
+            if (this.inTransaction)
+            {
+                cmd.Transaction = this.transaction;
+            }
+
+            return cmd;
+        }
         public override void BeginTransaction()
         {
             if (!inTransaction)
             {
-                this.transaction = this.con.BeginTransaction();
+                this.transaction = this.connection.BeginTransaction();
                 this.inTransaction = true;
             }
-           
         }
-
         public override void RollbackTransaction()
         {
             if (inTransaction)
@@ -123,7 +113,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (inTransaction)
