@@ -8,12 +8,19 @@ namespace DBAccess
 {
     public class MySqlAccess : DBAccess
     {
-
         private MySqlConnection connection;
-        private MySqlCommand cmd;
+        private MySqlTransaction transaction;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
-            connection = new MySqlConnection(connectionString);
+            MySqlConnectionStringBuilder conectionstring = new MySqlConnectionStringBuilder(connectionString);
+            try
+            {
+                this.connection = new MySqlConnection(conectionstring.ConnectionString);
+            }
+            catch (MySqlException e)
+            {
+                this.ProcessException(e);
+            }
             this.Connect();
         }
         public override void Connect()
@@ -21,59 +28,57 @@ namespace DBAccess
             if (this.connection.State == ConnectionState.Open) return;
             try
             {
-                connection.Open();
+                this.connection.Open();
             }
             catch (MySqlException e)
             {
-                throw e;
+                this.ProcessException(e);
             }
         }
-
         public override void Disconnect()
         {
             try
             {
-                connection.Close();
+                this.connection.Close();
             }
             catch (MySqlException ex)
             {
-                throw ex;
+                this.ProcessException(ex);
             }
         }
-
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
-            this.cmd = this.AddParameters(sql, parameters);
-            
+            MySqlCommand cmd = this.AddParameters(sql, parameters);
             MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(cmd);
-            this.cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
             DataTable result = new DataTable();
             result.Locale = CultureInfo.InvariantCulture;
             try
             {
                 oDataAdapter.Fill(result);
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                this.ProcessException(ex);
             }
             return result;
         }
-
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
             try
             {
-                this.cmd = this.AddParameters(pSql, parameters);
-                this.cmd.ExecuteNonQuery();
+                MySqlCommand cmd = this.AddParameters(pSql, parameters);
+                cmd.ExecuteNonQuery();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                this.ProcessException(ex);
             }
-
         }
-
         private MySqlCommand AddParameters(string sql, IDictionary<string, object> parameters)
         {
             MySqlCommand cmd = new MySqlCommand(sql, this.connection);
@@ -84,10 +89,29 @@ namespace DBAccess
             }
             return cmd;
         }
-
-        public override string LastInsertedId()
+        public override void BeginTransaction()
         {
-            return this.cmd.LastInsertedId.ToString();
+            if (!inTransaction)
+            {
+                this.transaction = this.connection.BeginTransaction();
+                this.inTransaction = true;
+            }
+        }
+        public override void RollbackTransaction()
+        {
+            if (this.inTransaction)
+            {
+                this.transaction.Rollback();
+                this.inTransaction = false;
+            }
+        }
+        public override void CommitTransaction()
+        {
+            if (this.inTransaction)
+            {
+                this.transaction.Commit();
+                this.inTransaction = false;
+            }
         }
     }
 }

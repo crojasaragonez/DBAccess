@@ -1,6 +1,5 @@
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\DBAccess.dll
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\DBAccess.pdb
-c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.csprojResolveAssemblyReference.cache
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.dll
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\obj\Debug\DBAccess.pdb
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\Microsoft.Extensions.Logging.dll
@@ -9,3 +8,13 @@ c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\Microsoft.Extensions.Logging.xml
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\Npgsql.xml
 c:\users\estudiante\documents\visual studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\DBAccess.dll.config
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\EntityFramework.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Data.SQLite.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\EntityFramework.xml
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\System.Data.SQLite.xml
+C:\Users\Estudiante\Documents\Visual Studio 2015\Projects\DBAccess\DBAccess\bin\Debug\MySql.Data.dll
