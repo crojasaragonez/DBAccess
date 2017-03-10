@@ -24,7 +24,6 @@ namespace DBAccess
             {
                 this.ProcessException(e);
             }
-
             this.Connect();
         }
         public override void Connect()
@@ -54,7 +53,6 @@ namespace DBAccess
         {
             this.CleanStatus();
             NpgsqlCommand cmd = this.AddParameters(sql, parameters);
-
             NpgsqlDataAdapter oDataAdapter = new NpgsqlDataAdapter(cmd);
             DataTable result = new DataTable();
             try
@@ -65,7 +63,6 @@ namespace DBAccess
             {
                 this.ProcessException(e);
             }
-
             return result;
         }
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
@@ -93,11 +90,9 @@ namespace DBAccess
             {
                 cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
-
             if (this.inTransaction) {
                 cmd.Transaction = this.transaction;
             }
-
             return cmd;
         }
         public override void BeginTransaction()

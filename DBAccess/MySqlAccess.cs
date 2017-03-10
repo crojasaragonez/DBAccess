@@ -21,7 +21,6 @@ namespace DBAccess
             {
                 this.ProcessException(e);
             }
-
             this.Connect();
         }
         public override void Connect()
@@ -29,18 +28,18 @@ namespace DBAccess
             if (this.connection.State == ConnectionState.Open) return;
             try
             {
-                connection.Open();
+                this.connection.Open();
             }
             catch (MySqlException e)
             {
-                throw e;
+                this.ProcessException(e);
             }
         }
         public override void Disconnect()
         {
             try
             {
-                connection.Close();
+                this.connection.Close();
             }
             catch (MySqlException ex)
             {
@@ -50,7 +49,6 @@ namespace DBAccess
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             MySqlCommand cmd = this.AddParameters(sql, parameters);
-
             MySqlDataAdapter oDataAdapter = new MySqlDataAdapter(cmd);
             cmd.ExecuteNonQuery();
             DataTable result = new DataTable();
@@ -80,7 +78,6 @@ namespace DBAccess
             {
                 this.ProcessException(ex);
             }
-
         }
         private MySqlCommand AddParameters(string sql, IDictionary<string, object> parameters)
         {

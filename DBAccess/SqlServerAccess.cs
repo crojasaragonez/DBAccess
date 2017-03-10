@@ -8,48 +8,51 @@ namespace DBAccess
     public class SqlServerAccess : DBAccess
     {
         private SqlTransaction transaction;
-        private SqlConnection conn;
+        private SqlConnection connection;
         public SqlServerAccess(string connectionString) : base(connectionString)
         {
-            conn = new SqlConnection();
-            conn.ConnectionString = connectionString;
-        }
-        public override void Connect()
-        {
-            if (this.conn.State == ConnectionState.Open) return;
+            SqlConnectionStringBuilder connectionstring = new SqlConnectionStringBuilder(connectionString);
             try
             {
-                this.CleanStatus();
-                conn.Open();
-
+                this.connection = new SqlConnection(connectionstring.ConnectionString);
             }
             catch (SqlException e)
             {
-                ProcessException(e);
+                this.ProcessException(e);
             }
-
+            this.Connect();
+        }
+        public override void Connect()
+        {
+            if (this.connection.State == ConnectionState.Open) return;
+            try
+            {
+                this.CleanStatus();
+                this.connection.Open();
+            }
+            catch (SqlException e)
+            {
+                this.ProcessException(e);
+            }
         }
         public override void Disconnect()
         {
             try
             {
-                conn.Close();
+                connection.Close();
             }
             catch (SqlException e)
             {
                 ProcessException(e);
             }
-
         }
         public override DataTable SqlQuery(string sql, IDictionary<string, object> parameters)
         {
             DataTable data = new DataTable();
-
             try
             {
                 this.CleanStatus();
-                SqlCommand sqlC = AddParameters(sql, parameters);
-
+                SqlCommand sqlC = this.AddParameters(sql, parameters);
                 data.Load(sqlC.ExecuteReader());
             }
             catch (SqlException e)
@@ -77,7 +80,7 @@ namespace DBAccess
         }
         private SqlCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
-            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlCommand cmd = new SqlCommand(sql, connection);
             cmd.CommandType = CommandType.Text;
             foreach (var parameter in parameters)
             {
@@ -87,14 +90,13 @@ namespace DBAccess
             {
                 cmd.Transaction = this.transaction;
             }
-
             return cmd;
         }
         public override void BeginTransaction()
         {
             if (!inTransaction)
             {
-                this.transaction = this.conn.BeginTransaction();
+                this.transaction = this.connection.BeginTransaction();
                 this.inTransaction = true;
             }
         }

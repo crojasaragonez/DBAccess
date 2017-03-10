@@ -25,8 +25,7 @@ namespace DBAccess
         }
         public override void Connect()
         {
-            if (this.connection.State == ConnectionState.Open)
-                return;
+            if (this.connection.State == ConnectionState.Open) return;
             try
             {
                 connection.Open();
@@ -51,7 +50,6 @@ namespace DBAccess
         {
             this.CleanStatus();
             SQLiteCommand cmd = this.AddParameters(sql, parameters);
-
             SQLiteDataAdapter oDataAdapter = new SQLiteDataAdapter(sql, this.connection);
             DataTable result = new DataTable();
             result.Locale = CultureInfo.InvariantCulture;
@@ -63,7 +61,6 @@ namespace DBAccess
             {
                 this.ProcessException(e);
             }
-
             return result;
         }
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)

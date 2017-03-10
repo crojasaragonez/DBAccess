@@ -19,7 +19,6 @@ namespace DBAccess
             {
                 this.ProcessException(e);
             }
-           
             this.Connect();
         }
         public override void Connect()
@@ -89,12 +88,10 @@ namespace DBAccess
             {
                 cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
             }
-
             if (this.inTransaction)
             {
                 cmd.Transaction = this.transaction;
             }
-
             return cmd;
         }
         public override void BeginTransaction()
