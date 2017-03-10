@@ -12,10 +12,9 @@ namespace DBAccess
         private SQLiteTransaction transaction;
         public SqliteAccess(string connectionString) : base(connectionString)
         {
-            SQLiteConnectionStringBuilder connectionstring = new SQLiteConnectionStringBuilder(connectionString);
             try
             {
-                this.connection = new SQLiteConnection(connectionstring.ConnectionString);
+                this.connection = new SQLiteConnection(this.connectionString);
             }
             catch (SQLiteException e)
             {

@@ -15,10 +15,9 @@ namespace DBAccess
         private NpgsqlTransaction transaction;
         public PgAccess(string connectionString) : base(connectionString)
         {
-            NpgsqlConnectionStringBuilder conectionstring = new NpgsqlConnectionStringBuilder(connectionString);
             try
             {
-                this.connection = new NpgsqlConnection(conectionstring.ConnectionString);
+                this.connection = new NpgsqlConnection(this.connectionString);
             }
             catch (NpgsqlException e)
             {

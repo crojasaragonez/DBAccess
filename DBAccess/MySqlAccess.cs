@@ -12,10 +12,9 @@ namespace DBAccess
         private MySqlTransaction transaction;
         public MySqlAccess(string connectionString) : base(connectionString)
         {
-            MySqlConnectionStringBuilder conectionstring = new MySqlConnectionStringBuilder(connectionString);
             try
             {
-                this.connection = new MySqlConnection(conectionstring.ConnectionString);
+                this.connection = new MySqlConnection(this.connectionString);
             }
             catch (MySqlException e)
             {

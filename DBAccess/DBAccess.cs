@@ -9,7 +9,7 @@ namespace DBAccess
 {
     public abstract class DBAccess : ErrorHandler
     {
-        string connectionString;
+        protected string connectionString;
         protected bool inTransaction;
         public DBAccess(string connectionString)
         {

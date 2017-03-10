@@ -11,10 +11,9 @@ namespace DBAccess
         private OdbcConnection connection;
         public SqlServerAccessODBC(string connectionString) : base(connectionString)
         {
-            OdbcConnectionStringBuilder connectionstring = new OdbcConnectionStringBuilder(connectionString);
             try
             {
-                this.connection = new OdbcConnection(connectionstring.ConnectionString);
+                this.connection = new OdbcConnection(this.connectionString);
             }
             catch (OdbcException e)
             {
@@ -88,7 +87,6 @@ namespace DBAccess
             }
             return cmd;
         }
-
         public override void BeginTransaction()
         {
             if (!inTransaction)
@@ -97,7 +95,6 @@ namespace DBAccess
                 this.inTransaction = true;
             }
         }
-
         public override void RollbackTransaction()
         {
             if (this.inTransaction)
@@ -106,7 +103,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override void CommitTransaction()
         {
             if (this.inTransaction)
@@ -115,7 +111,6 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();

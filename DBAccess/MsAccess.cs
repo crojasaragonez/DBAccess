@@ -13,7 +13,7 @@ namespace DBAccess
         {
             try
             {
-                this.connection = new OleDbConnection(connectionString);
+                this.connection = new OleDbConnection(this.connectionString);
             }
             catch (OleDbException e)
             {

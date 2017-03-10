@@ -11,10 +11,9 @@ namespace DBAccess
         private SqlConnection connection;
         public SqlServerAccess(string connectionString) : base(connectionString)
         {
-            SqlConnectionStringBuilder connectionstring = new SqlConnectionStringBuilder(connectionString);
             try
             {
-                this.connection = new SqlConnection(connectionstring.ConnectionString);
+                this.connection = new SqlConnection(this.connectionString);
             }
             catch (SqlException e)
             {
