@@ -8,23 +8,21 @@ namespace DBAccess
     public class SqlServerAccessODBC : DBAccess
     {
         private OdbcTransaction transaction;
-        private OdbcConnection cn;
-        private bool inTransaction;
+        private OdbcConnection connection;
 
         public SqlServerAccessODBC(string connectionString) : base(connectionString)
         {
-            this.inTransaction = false;
-            cn = new OdbcConnection();
-            cn.ConnectionString = connectionString;
+            connection = new OdbcConnection();
+            connection.ConnectionString = connectionString;
         }
         public override void Connect()
         {
 
-            if (this.cn.State == ConnectionState.Open) return;
+            if (this.connection.State == ConnectionState.Open) return;
             try
             {
     this.CleanStatus();
-    cn.Open();
+    connection.Open();
     
                 }
             catch (OdbcException e)
@@ -38,7 +36,7 @@ namespace DBAccess
         {
             try
            {
-                cn.Close();
+                connection.Close();
             }
             catch (OdbcException e)
             {
@@ -81,7 +79,7 @@ namespace DBAccess
 
         private OdbcCommand AddParameters(string sql, IDictionary<string, Object> parameters)
         {
-            OdbcCommand cmd = new OdbcCommand(sql, cn);
+            OdbcCommand cmd = new OdbcCommand(sql, connection);
             cmd.CommandType = CommandType.Text;
             foreach (var parameter in parameters)
             {
@@ -98,7 +96,7 @@ namespace DBAccess
         {
             if (!inTransaction)
             {
-                this.transaction = this.cn.BeginTransaction();
+                this.transaction = this.connection.BeginTransaction();
                 this.inTransaction = true;
             }
         }
@@ -119,6 +117,11 @@ namespace DBAccess
                 this.transaction.Commit();
                 this.inTransaction = false;
             }
+        }
+
+        public override object SqlScalar(string sql, IDictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }
