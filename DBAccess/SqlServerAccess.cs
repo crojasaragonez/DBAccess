@@ -63,7 +63,18 @@ namespace DBAccess
         }
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            this.CleanStatus();
+            object result = null;
+            try
+            {
+                SqlCommand sqlC = this.AddParameters(sql, parameters);
+                result = sqlC.ExecuteScalar();
+            }
+            catch (SqlException e)
+            {
+                this.ProcessException(e);
+            }
+            return result;
         }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
