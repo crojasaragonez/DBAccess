@@ -95,7 +95,7 @@ namespace DBAccess
             cmd.CommandType = CommandType.Text;
             foreach (var parameter in parameters)
             {
-                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                cmd.Parameters.AddWithValue(parameter.Key, (parameter.Value) ?? DBNull.Value);
             }
             return cmd;
         }
