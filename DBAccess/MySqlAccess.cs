@@ -127,7 +127,7 @@ namespace DBAccess
             }
         }
 
-        public override void NoticeProcedure()
+        public override void ProcedureNotice()
         {
             this.connection.InfoMessage += new MySqlInfoMessageEventHandler((object sender, MySqlInfoMessageEventArgs e) => {
                 Procedure(e.errors.GetValue(0).ToString());

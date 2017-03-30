@@ -129,7 +129,7 @@ namespace DBAccess
             }
         }
 
-        public override void NoticeProcedure()
+        public override void ProcedureNotice()
         {
             Procedure(null);
         }

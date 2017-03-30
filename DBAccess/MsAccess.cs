@@ -132,7 +132,7 @@ namespace DBAccess
             }
         }
 
-        public override void NoticeProcedure()
+        public override void ProcedureNotice()
         {
             this.connection.InfoMessage += new OleDbInfoMessageEventHandler((object sender, OleDbInfoMessageEventArgs e) => {
                 Procedure(e.Message);

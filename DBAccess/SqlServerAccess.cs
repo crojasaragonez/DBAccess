@@ -128,7 +128,7 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-        public override void NoticeProcedure()
+        public override void ProcedureNotice()
         {
             this.connection.InfoMessage += new SqlInfoMessageEventHandler((object sender, SqlInfoMessageEventArgs e) => {
                 Procedure(e.Message);

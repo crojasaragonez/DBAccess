@@ -124,7 +124,7 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
-        public override void NoticeProcedure()
+        public override void ProcedureNotice()
         {
             this.connection.Notice += new NoticeEventHandler((object sender, NpgsqlNoticeEventArgs e) => {
                 Procedure(e.Notice.MessageText);
