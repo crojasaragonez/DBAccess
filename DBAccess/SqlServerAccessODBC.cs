@@ -62,9 +62,10 @@ namespace DBAccess
         }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
+            this.CleanStatus();
+            this.CleanProcedureMessage();
             try
             {
-                this.CleanStatus();
                 OdbcCommand sqlC = this.AddParameters(pSql, parameters);
                 sqlC.ExecuteNonQuery();
             }
@@ -114,6 +115,7 @@ namespace DBAccess
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
+            this.CleanProcedureMessage();
             object result = null;
             try
             {
@@ -125,6 +127,13 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             return result;
+        }
+
+        public override void NoticeProcedure()
+        {
+            this.connection.InfoMessage += new OdbcInfoMessageEventHandler((object sender, OdbcInfoMessageEventArgs e) => {
+                Procedure(e.Message);
+            });
         }
     }
 }

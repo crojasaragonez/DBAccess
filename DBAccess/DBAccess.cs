@@ -24,5 +24,6 @@ namespace DBAccess
         public abstract void BeginTransaction();
         public abstract void RollbackTransaction();
         public abstract void CommitTransaction();
+        public abstract void NoticeProcedure();
     }
 }

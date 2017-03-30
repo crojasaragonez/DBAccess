@@ -65,6 +65,7 @@ namespace DBAccess
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
             this.CleanStatus();
+            this.CleanProcedureMessage();
             object result = null;
             try
             {
@@ -79,6 +80,8 @@ namespace DBAccess
         }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
+            this.CleanStatus();
+            this.CleanProcedureMessage();
             try
             {
                 MySqlCommand cmd = this.AddParameters(pSql, parameters);
@@ -122,6 +125,13 @@ namespace DBAccess
                 this.transaction.Commit();
                 this.inTransaction = false;
             }
+        }
+
+        public override void NoticeProcedure()
+        {
+            this.connection.InfoMessage += new MySqlInfoMessageEventHandler((object sender, MySqlInfoMessageEventArgs e) => {
+                Procedure(e.errors.GetValue(0).ToString());
+            });
         }
     }
 }

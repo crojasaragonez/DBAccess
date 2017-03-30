@@ -128,5 +128,10 @@ namespace DBAccess
                 this.inTransaction = false;
             }
         }
+
+        public override void NoticeProcedure()
+        {
+            Procedure(null);
+        }
     }
 }
