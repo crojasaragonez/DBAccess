@@ -20,6 +20,10 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             this.Connect();
+
+            this.connection.Notice += new NoticeEventHandler((object sender, NpgsqlNoticeEventArgs e) => {
+                ProcessStoreProcedureException(e.Notice.MessageText);
+            });
         }
         public override void Connect()
         {
@@ -62,8 +66,7 @@ namespace DBAccess
         }
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
-            this.CleanStatus();
-            this.CleanProcedureMessage();           
+            this.CleanStatus();        
             object result = null;
             try
             {
@@ -79,7 +82,6 @@ namespace DBAccess
         public override void SqlStatement(string sql, IDictionary<string, Object> parameters)
         {
             this.CleanStatus();
-            this.CleanProcedureMessage();
             try
             {
                 NpgsqlCommand cmd = this.AddParameters(sql, parameters);
@@ -123,12 +125,6 @@ namespace DBAccess
                 this.transaction.Commit();
                 this.inTransaction = false;
             }
-        }
-        public override void ProcedureNotice()
-        {
-            this.connection.Notice += new NoticeEventHandler((object sender, NpgsqlNoticeEventArgs e) => {
-                Procedure(e.Notice.MessageText);
-            });
         }
     }
 }

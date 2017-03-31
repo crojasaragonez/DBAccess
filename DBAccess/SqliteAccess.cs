@@ -129,9 +129,5 @@ namespace DBAccess
             }
         }
 
-        public override void ProcedureNotice()
-        {
-            Procedure(null);
-        }
     }
 }
