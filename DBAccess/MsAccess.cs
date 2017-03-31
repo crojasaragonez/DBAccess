@@ -20,6 +20,10 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             this.Connect();
+
+            this.connection.InfoMessage += new OleDbInfoMessageEventHandler((object sender, OleDbInfoMessageEventArgs e) => {
+                ProcessStoreProcedureException(e.Message);
+            });
         }
         public override void Connect()
         {

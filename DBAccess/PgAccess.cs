@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBAccess
 {
@@ -17,13 +13,17 @@ namespace DBAccess
         {
             try
             {
-                this.connection = new NpgsqlConnection(this.connectionString);
+                this.connection = new NpgsqlConnection(this.connectionString);             
             }
             catch (NpgsqlException e)
             {
                 this.ProcessException(e);
             }
             this.Connect();
+
+            this.connection.Notice += new NoticeEventHandler((object sender, NpgsqlNoticeEventArgs e) => {
+                ProcessStoreProcedureException(e.Notice.MessageText);
+            });
         }
         public override void Connect()
         {
@@ -66,12 +66,12 @@ namespace DBAccess
         }
         public override object SqlScalar(string sql, IDictionary<string, object> parameters)
         {
-            this.CleanStatus();
+            this.CleanStatus();        
             object result = null;
             try
             {
                 NpgsqlCommand cmd = this.AddParameters(sql, parameters);
-                result = cmd.ExecuteScalar();
+                result = cmd.ExecuteScalar();               
             }
             catch (NpgsqlException e)
             {
@@ -85,7 +85,7 @@ namespace DBAccess
             try
             {
                 NpgsqlCommand cmd = this.AddParameters(sql, parameters);
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();               
             }
             catch (NpgsqlException e)
             {

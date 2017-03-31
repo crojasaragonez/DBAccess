@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBAccess
 {
-    public class ErrorHandler
+    public class ErrorHandler 
     {
         public bool isError { get; set; }
         public string errorDescription { get; set; }
@@ -14,6 +10,12 @@ namespace DBAccess
         protected void ProcessException(Exception e) {
             this.isError = true;
             this.errorDescription = e.Message;
+        }
+
+        protected void ProcessStoreProcedureException(string message)
+        {
+            this.isError = true;
+            this.errorDescription = message;
         }
 
         protected void CleanStatus()

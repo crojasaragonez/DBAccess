@@ -21,6 +21,10 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             this.Connect();
+
+            this.connection.InfoMessage += new MySqlInfoMessageEventHandler((object sender, MySqlInfoMessageEventArgs e) => {
+                ProcessStoreProcedureException(e.errors.GetValue(0).ToString());
+            });
         }
         public override void Connect()
         {
@@ -79,6 +83,7 @@ namespace DBAccess
         }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
+            this.CleanStatus();
             try
             {
                 MySqlCommand cmd = this.AddParameters(pSql, parameters);

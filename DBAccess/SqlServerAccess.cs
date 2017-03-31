@@ -20,6 +20,10 @@ namespace DBAccess
                 this.ProcessException(e);
             }
             this.Connect();
+
+            this.connection.InfoMessage += new SqlInfoMessageEventHandler((object sender, SqlInfoMessageEventArgs e) => {
+                ProcessStoreProcedureException(e.Message);
+            });
         }
         public override void Connect()
         {
@@ -77,9 +81,9 @@ namespace DBAccess
         }
         public override void SqlStatement(string pSql, IDictionary<string, object> parameters)
         {
+            this.CleanStatus();
             try
             {
-                this.CleanStatus();
                 SqlCommand sqlC = this.AddParameters(pSql, parameters);    
                 sqlC.ExecuteNonQuery();
             }
